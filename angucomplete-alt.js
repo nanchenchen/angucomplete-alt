@@ -228,7 +228,6 @@
 
         if (which === KEY_UP || which === KEY_EN) {
           event.preventDefault();
-          scope.enterKeyDown(scope.searchStr);
         }
         else if (which === KEY_DW) {
           event.preventDefault();
@@ -323,15 +322,22 @@
         var row = null;
         var rowTop = null;
 
-        if (which === KEY_EN && scope.results) {
-          if (scope.currentIndex >= 0 && scope.currentIndex < scope.results.length) {
-            event.preventDefault();
-            scope.selectResult(scope.results[scope.currentIndex]);
-          } else {
-            handleOverrideSuggestions(event);
-            clearResults();
+        if (which === KEY_EN) {
+          if ( scope.results ) {
+            if (scope.currentIndex >= 0 && scope.currentIndex < scope.results.length) {
+              event.preventDefault();
+              scope.selectResult(scope.results[scope.currentIndex]);
+            } else {
+              handleOverrideSuggestions(event);
+              clearResults();
+              scope.enterKeyDown(scope.searchStr);
+            }
+            scope.$apply();
+
+          }else {
+            scope.enterKeyDown(scope.searchStr);
           }
-          scope.$apply();
+
         } else if (which === KEY_DW && scope.results) {
           event.preventDefault();
           if ((scope.currentIndex + 1) < scope.results.length && scope.showDropdown) {
