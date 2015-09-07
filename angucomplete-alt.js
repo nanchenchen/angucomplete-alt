@@ -228,6 +228,7 @@
 
         if (which === KEY_UP || which === KEY_EN) {
           event.preventDefault();
+          scope.enterKeyDown(scope.searchStr);
         }
         else if (which === KEY_DW) {
           event.preventDefault();
@@ -769,7 +770,8 @@
         autoMatch: '@',
         focusOut: '&',
         focusIn: '&',
-        inputName: '@'
+        inputName: '@',
+        enterKeyDown: '='
       },
       templateUrl: function(element, attrs) {
         return attrs.templateUrl || TEMPLATE_URL;
